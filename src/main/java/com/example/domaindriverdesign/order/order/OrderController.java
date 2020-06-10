@@ -31,11 +31,6 @@ public class OrderController {
         this.representationService = representationService;
     }
 
-    @RequestMapping("/test")
-    public void test(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        response.getWriter().write("hello world!");
-    }
-
     @PostMapping
     @ResponseStatus(CREATED)
     public Map<String, String> createOrder(@RequestBody @Valid CreateOrderCommand command) {
