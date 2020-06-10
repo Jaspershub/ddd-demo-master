@@ -17,6 +17,6 @@
 
 
 
-#### **对象模型：
+#### **对象模型：**
 
-![image-20200610132422982](D:\Project\domaindriverdesign\ddd-demo-master\image-20200610132422982.png)
+![](https://github.com/Jaspershub/ddd-demo-master/blob/master/img/ModelObject.png)
