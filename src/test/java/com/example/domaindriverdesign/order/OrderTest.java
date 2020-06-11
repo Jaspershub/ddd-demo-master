@@ -29,7 +29,11 @@ public class OrderTest {
         Order order = Order.create(newUuid(), newArrayList(orderItem1, orderItem2), address);
         assertThat(valueOf(130), comparesEqualTo(order.getTotalPrice()));
         assertEquals(CREATED, order.getStatus());
-        
+        OrderItem item1 = order.getItems().get(0);
+        OrderItem item2 = order.getItems().get(1);
+        OrderItemCommand orderItemCommand1 = new OrderItemCommand(item1.getProductId(),item1.getCount(),item1.getItemPrice());
+        OrderItemCommand orderItemCommand2 = new OrderItemCommand(item2.getProductId(),item2.getCount(),item2.getItemPrice());
+        CreateOrderCommand command = new CreateOrderCommand(newArrayList(orderItemCommand1,orderItemCommand2),order.getAddress());
 
     }
 }

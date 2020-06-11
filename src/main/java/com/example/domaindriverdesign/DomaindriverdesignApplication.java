@@ -2,6 +2,7 @@ package com.example.domaindriverdesign;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
 
 import javax.annotation.PostConstruct;
 import java.util.TimeZone;
@@ -11,6 +12,7 @@ import static java.util.TimeZone.getTimeZone;
 
 
 @SpringBootApplication(scanBasePackages={"com.example.domaindriverdesign.shared.event"})
+@EnableCaching
 public class DomaindriverdesignApplication {
 
     public static void main(String[] args) {

@@ -4,16 +4,19 @@ import com.example.domaindriverdesign.order.order.command.ChangeAddressDetailCom
 import com.example.domaindriverdesign.order.order.command.ChangeProductCountCommand;
 import com.example.domaindriverdesign.order.order.command.CreateOrderCommand;
 import com.example.domaindriverdesign.order.order.command.PayOrderCommand;
+import com.example.domaindriverdesign.order.order.model.Order;
 import com.example.domaindriverdesign.order.order.representation.OrderRepresentation;
 import com.example.domaindriverdesign.order.order.representation.OrderRepresentationService;
 import com.example.domaindriverdesign.order.order.representation.OrderSummaryRepresentation;
+import com.example.domaindriverdesign.shared.utils.Page4Navigator;
 import com.example.domaindriverdesign.shared.utils.PagedResource;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.io.IOException;
 import java.util.Map;
 
 import static com.google.common.collect.ImmutableMap.of;
@@ -22,6 +25,7 @@ import static org.springframework.http.HttpStatus.CREATED;
 @RestController
 @RequestMapping(value = "/orders")
 public class OrderController {
+
     private final OrderApplicationService applicationService;
     private final OrderRepresentationService representationService;
 
@@ -61,5 +65,15 @@ public class OrderController {
     public PagedResource<OrderSummaryRepresentation> pagedProducts(@RequestParam(required = false, defaultValue = "1") int pageIndex,
                                                                    @RequestParam(required = false, defaultValue = "10") int pageSize) {
         return representationService.listOrders(pageIndex, pageSize);
+    }
+
+    @RequestMapping("/listOrder")
+    public String listCategory(Model m, @RequestParam(value = "start", defaultValue = "0") int start, @RequestParam(value = "size", defaultValue = "5") int size) throws Exception {
+        start = start<0?0:start;
+        Sort sort = new Sort(Sort.Direction.DESC, "id");
+        Pageable pageable = new PageRequest(start, size, sort);
+        Page4Navigator<Order> page =OrderApplicationService.list(pageable);
+        m.addAttribute("page", page);
+        return "listCategory";
     }
 }

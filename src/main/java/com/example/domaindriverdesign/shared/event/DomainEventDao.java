@@ -1,5 +1,6 @@
 package com.example.domaindriverdesign.shared.event;
 
+
 import java.util.List;
 
 public interface DomainEventDao {
